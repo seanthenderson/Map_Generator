@@ -1,17 +1,25 @@
 body {
+  background-color: #999;
   font-family: Arial, sans-serif; }
+
+a {
+  color: #0091d8;
+  text-decoration: none; }
+  a:visited {
+    color: #0091d8; }
+  a:hover {
+    text-decoration: underline; }
 
 form,
 #getCode {
   margin-bottom: 10px;
   padding: 5px 15px;
-  background-color: #01a084;
-  color: #fff;
+  background-color: #fff;
+  border: 4px solid #333;
   overflow: hidden; }
   form h2,
   #getCode h2 {
     margin: 5px 0 12px;
-    padding: 0 12px;
     text-transform: uppercase;
     cursor: pointer; }
   form fieldset,
@@ -20,10 +28,16 @@ form,
     border: none;
     border-bottom: solid 1px #ccc;
     font-size: 18px; }
-    form fieldset input,
-    #getCode fieldset input {
+    form fieldset input, form fieldset textarea,
+    #getCode fieldset input,
+    #getCode fieldset textarea {
       margin: 0 50px 0 10px;
       font-size: 18px; }
+    form fieldset .small-link,
+    #getCode fieldset .small-link {
+      font-size: 12px;
+      margin-left: 15px;
+      vertical-align: middle; }
   form button,
   #getCode button {
     margin: 10px 0;
@@ -40,27 +54,33 @@ form,
       background-color: #1565C0; }
 
 form#mapSettings input {
-  width: 50px; }
+  width: 60px;
+  text-align: center; }
 
 form#addMarker textarea {
   width: 400px;
   height: 150px;
   vertical-align: top; }
-form#addMarker .infowindow {
+form#addMarker .infowindow-preview {
   max-width: 600px;
   min-height: 300px;
   padding: 20px;
   background-color: #fff;
   border: 3px solid #333;
   color: #333; }
-  form#addMarker .infowindow #locationThumb {
+  form#addMarker .infowindow-preview #locationThumb {
     margin: 0 0 10px 20px;
     float: right; }
-  form#addMarker .infowindow h2 {
+  form#addMarker .infowindow-preview a {
+    color: #1BC8E2;
+    text-decoration: none; }
+    form#addMarker .infowindow-preview a:hover {
+      text-decoration: underline; }
+  form#addMarker .infowindow-preview h2 {
     font-size: 31px;
     text-transform: none;
     line-height: 1.1; }
-  form#addMarker .infowindow p {
+  form#addMarker .infowindow-preview p {
     font-size: 16px;
     line-height: 1.5; }
 
@@ -225,5 +245,9 @@ form#addMarker .infowindow {
     @media only screen and (max-width: 400px) {
       #map-wrapper #map {
         height: 300px; } }
+
+.infowindow img,
+.infowindow-preview img {
+  max-width: 250px; }
 
 /*# sourceMappingURL=style.css.map */

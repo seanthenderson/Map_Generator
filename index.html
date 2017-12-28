@@ -22,11 +22,11 @@
 				
 				<fieldset>
 					<label for="zoomLevel">Map zoom level</label>
-					<input type="number" id="zoomLevel" v-model="zoomLevel" />
+					<input type="number" id="zoomLevel" v-model="zoomLevel" placeholder="(1-22)" />
 				</fieldset>
-				
+
 				<fieldset>
-					<p><strong>Map Center Point</strong></p>
+					<p><strong>Map Center Point</strong><a href="https://www.latlong.net/" target=__blank" class="small-link">Find coordinates: latlong.net</a></p>
 					<label for="centerLat">Latitude</label>
 					<input type="number" id="centerLat" v-model="centerLat" /> 
 					<label for="centerLong">Longitude</label>
@@ -46,7 +46,7 @@
 				<h2><i class="fa fa-plus-circle" aria-hidden="true"></i> Add A Marker</h2>
 				<fieldset>
 					<label for="locationName">Location Name</label>
-					<input type="text" id="locationName" v-model="locationName"/> 
+					<input type="text" id="locationName" v-model="locationName" text/> 
 				</fieldset>
 				<fieldset>
 					<label for="latitude">Latitude</label>
@@ -69,7 +69,7 @@
 				<button id="addMarkerButton" @click="reset()">Add Marker</button>
 				
 				<p>Info window preview:</p>
-				<div class="infowindow">
+				<div class="infowindow-preview">
 					<div id="locationThumb"><img v-bind:src=" locationImage" /></div>
 					<h2>{{locationName}}</h2>
 					<p>{{locationDescription}}</p>
@@ -91,11 +91,11 @@
 				<h2><i class="fa fa-plus-circle" aria-hidden="true"></i> Copy Code</h2>
 				<p><strong>Copy code below and paste to your site:</strong></p>
 				<textarea id="mapCode">
-					<div id="map-wrapper">
-						<div id="map-menu">
+				<div id="map-wrapper">
+					<div id="map-menu">
 							
-						</div>
 					</div>
+				</div>
 				</textarea>
 			</div>
 		</div>

@@ -55,13 +55,13 @@ function initMap(map) {
 	function changeMap() {
 		var zoom = document.getElementById('zoomLevel').value;
 		zoom = parseInt(zoom);
-        console.log(zoom);
+        //console.log(zoom);
 		var latitude = document.getElementById('centerLat').value;
 		latitude = parseInt(latitude);
-        console.log(latitude);
+        //console.log(latitude);
 		var longitude = document.getElementById('centerLong').value;
 		longitude = parseInt(longitude);
-        console.log(latitude);
+        //console.log(latitude);
 
 		map.setCenter(new google.maps.LatLng(latitude, longitude));
 		map.setZoom(zoom);
@@ -77,75 +77,111 @@ function initMap(map) {
 	});
 
 	// Add new marker
-	function addMarker() {
-		var latitude = document.getElementById('latitude').value;
-		latitude = parseInt(latitude);
-		var longitude = document.getElementById('longitude').value;
-		longitude = parseInt(longitude);
-		var locationName = document.getElementById('locationName').value;
-		
-		var marker = new google.maps.Marker({
-			position: new google.maps.LatLng(latitude, longitude),
-			label: locationName,
-			map: map,
-		});
-	}
-
-	$('#addMarkerButton').click(function() {
-		addMarker();
-		$('form#addMarker input').each(function() {
-			$(this).val('');
-		});
-		$('form#addMarker textarea').val('');
-	});
-
-	// Add map marker arrays
-    var locations = [];
-
-    $('.menu-section').each(function() {
-        $(this).children('.thumbnail').each(function() {
-            x = 0;
-            var info = [$(this).children('p'), $(this).attr('data-lat'), $(this).attr('data-long'), x+1];
-            locations.push(info);
-            x++;
-        });    
-    });
-
-    var marker, i;
+    var marker;
+    var markerId = 0;
     var markers = [];
     var redMarker = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
     var blueMarker = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png';
 
-    // Add markers to map 
-    for (i = 0; i < locations.length; i++) {
-        marker = new google.maps.Marker({
-            position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-            icon: redMarker,
+	$('#addMarkerButton').click(function(marker) {
+        var latitude = document.getElementById('latitude').value;
+        latitude = parseInt(latitude);
+        var longitude = document.getElementById('longitude').value;
+        longitude = parseInt(longitude);
+        var locationName = document.getElementById('locationName').value;
+        var locationImage = document.getElementById('locationImage').value;
+        var locationDescription = document.getElementById('locationDescription').value; 
+        var locationLink = document.getElementById('locationLink').value;
+
+		// Add a new marker
+        var marker = new google.maps.Marker({
+            position: new google.maps.LatLng(latitude, longitude),
+            label: locationName,
             map: map,
-            zIndex: 999,
-            id: i
+            id: markerId
         });
 
-        // Switch icon on marker mouseover and mouseout
-        $('.thumbnail').mouseenter(function() {
-            var num = $('.thumbnail').index(this);
-            markers[num].setIcon(blueMarker);
+        markers.push(marker);
+
+        markerId++;
+
+        // Clear form inputs
+		$('form#addMarker input').each(function() {
+			$(this).val('');
+		});
+
+        // Clear form textarea
+		$('form#addMarker textarea').val('');
+
+        // Add menu thumbnail
+        $('.menu-section.first').append(
+            '<div class="thumbnail"' + 
+                'style="background-image: url(\'' + locationImage + '\')"' +
+            '>' +
+                '<p>' + locationName + '</p>' +
+            '</div>'
+        );
+
+        // Add infowindow
+        $('<div class="infowindow">' +
+            '<i class="fa fa-times" aria-hidden="true"></i>' +
+            '<img src="' + locationImage + '"/>' +
+            '<h2>' + locationName + '</h2>' +
+            locationDescription +
+            '<p><a href="' + locationLink + '" target="_blank">More Info</a></p>' +
+        '</div>').insertBefore('#map');
+        
+        // Show infowindow on thumbnail click
+        $('.thumbnail').on('click', function() {
+            var thumbNum = $('.thumbnail').index(this); 
+            if ($(window).width() > 700) {
+                var thumbNum = thumbNum+2;
+            } else {
+                var thumbNum = thumbNum+1;
+            }
+            $('.infowindow:nth-of-type(' + thumbNum + ')').fadeIn();
         });
-        $('.thumbnail').mouseleave(function() {
-            var num = $('.thumbnail').index(this); 
-            markers[num].setIcon(redMarker);
+
+        // Hide infowindow on x click
+        $('.infowindow .fa-times').on('click', function() {
+            $('.infowindow').fadeOut();
         });
+        $('.infowindow').on('click', function(e) {
+            e.stopPropagation();
+        });
+
+        // Add code to copy code section on add marker button click
+        document.getElementById("mapCode").value +=
+            '<div class="menu-section-header"></div>' +
+                '<div class="menu-section first">' +
+                    '<div class="thumbnail" style="background-image: url(' + locationImage + ');" data-lat="{{latitude}}" data-long="{{longitude}}">' +
+                '<p>' + locationName + '</p>' +
+                '<div class="description">' +
+                        '<p>' + locationDescription + '</p>' +
+                        '<p><a href="' + locationLink + '" target="_blank">Website</a></p>' +
+                '</div>' +
+            '</div>' +
+        '</div>';
 
         // Show infowindow on marker click
-        google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        google.maps.event.addListener(marker, 'click', (function(marker) {
             return function() {
                 var markerNum = marker.id+2;
                 $('.infowindow:nth-of-type(' + markerNum + ')').fadeIn();
             }
-        })(marker, i));
+        })(marker));
 
-        markers.push(marker);
-    }
+        // Switch icon on marker mouseover and mouseout
+        $('.thumbnail').on('mouseenter', function() {
+            var num = $('.thumbnail').index(this);
+            markers[num].setIcon(blueMarker);
+        });
+        $('.thumbnail').on('mouseleave', function() {
+            var num = $('.thumbnail').index(this); 
+            markers[num].setIcon(redMarker);
+        });
+
+	});
 
     // Only show first theme on page load
     var theme1 = $('.menu-section').eq(0).children('.thumbnail').length;
@@ -201,57 +237,56 @@ function initMap(map) {
 	google.maps.event.trigger(map, "resize");
 		
 }
-
+$(document).ready(function() {
 //=======================================================
 // Show/hide form section
 //=======================================================
-var initialHeight = 35;
-var settingsHeight= $('form#mapSettings').outerHeight();
-var addMarkerHeight= $('form#addMarker').outerHeight();
-var getCodeHeight= $('#getCode').outerHeight();
-var settingsCount = 0;
-var addMarkerCount = 0;
-var getCodeCount = 0;
+    var initialHeight = 35;
+    var settingsHeight= $('form#mapSettings').outerHeight();
+    var addMarkerHeight= $('form#addMarker').outerHeight();
+    var getCodeHeight= $('#getCode').outerHeight();
+    var settingsCount = 0;
+    var addMarkerCount = 0;
+    var getCodeCount = 0;
 
-$('form, #getCode').height(initialHeight);
+    $('form, #getCode').height(initialHeight);
 
-$('form#mapSettings h2').on('click', function() {
-	if (settingsCount%2===0) {
-		$(this).parent().animate({'height': settingsHeight});
-		$(this).children('.fa').removeClass('fa-plus-circle').addClass('fa-minus-circle');
-	} else {
-		$(this).parent().animate({'height': initialHeight});
-		$(this).children('.fa').removeClass('fa-minus-circle').addClass('fa-plus-circle');
-	}
-	settingsCount++;
-});
+    $('form#mapSettings h2').on('click', function() {
+    	if (settingsCount%2===0) {
+    		$(this).parent().animate({'height': settingsHeight});
+    		$(this).children('.fa').removeClass('fa-plus-circle').addClass('fa-minus-circle');
+    	} else {
+    		$(this).parent().animate({'height': initialHeight});
+    		$(this).children('.fa').removeClass('fa-minus-circle').addClass('fa-plus-circle');
+    	}
+    	settingsCount++;
+    });
 
-$('form#addMarker h2').on('click', function() {
-	if (addMarkerCount%2===0) {
-		$(this).parent().animate({'height': addMarkerHeight});
-		$(this).children('.fa').removeClass('fa-plus-circle').addClass('fa-minus-circle');
-	} else {
-		$(this).parent().animate({'height': initialHeight});
-		$(this).children('.fa').removeClass('fa-minus-circle').addClass('fa-plus-circle');
-	}
-	addMarkerCount++;
-});
+    $('form#addMarker h2').on('click', function() {
+    	if (addMarkerCount%2===0) {
+    		$(this).parent().animate({'height': addMarkerHeight});
+    		$(this).children('.fa').removeClass('fa-plus-circle').addClass('fa-minus-circle');
+    	} else {
+    		$(this).parent().animate({'height': initialHeight});
+    		$(this).children('.fa').removeClass('fa-minus-circle').addClass('fa-plus-circle');
+    	}
+    	addMarkerCount++;
+    });
 
-$('#getCode h2').on('click', function() {
-	if (getCodeCount%2===0) {
-		$(this).parent().animate({'height': getCodeHeight});
-		$(this).children('.fa').removeClass('fa-plus-circle').addClass('fa-minus-circle');
-	} else {
-		$(this).parent().animate({'height': initialHeight});
-		$(this).children('.fa').removeClass('fa-minus-circle').addClass('fa-plus-circle');
-	}
-	getCodeCount++;
-});
+    $('#getCode h2').on('click', function() {
+    	if (getCodeCount%2===0) {
+    		$(this).parent().animate({'height': getCodeHeight});
+    		$(this).children('.fa').removeClass('fa-plus-circle').addClass('fa-minus-circle');
+    	} else {
+    		$(this).parent().animate({'height': initialHeight});
+    		$(this).children('.fa').removeClass('fa-minus-circle').addClass('fa-plus-circle');
+    	}
+    	getCodeCount++;
+    });
 
 //=======================================================
 // Map functionality
 //=======================================================
-$(document).ready(function() {
     var mobileBreakpoint = 700;
 
     // Show/hide menu sections
@@ -271,84 +306,14 @@ $(document).ready(function() {
     if ($(window).width() > mobileBreakpoint) {
         $('#map-wrapper, #map-menu').height($('#map-menu').outerHeight() - 4);
     }
-     
-    // Create an infowindow for each location
-    $('.menu-section .thumbnail').each(function() {
-        var locationName = $(this).children('p').text();
-        var locationImg = $(this).css('background-image');
-        locationImg = locationImg.replace('url(','').replace(')','').replace(/\"/gi, "");
-        var locationDesc = $(this).children('.description').html();
-        
-        $('<div class="infowindow"><i class="fa fa-times" aria-hidden="true"></i><img src="' + locationImg + '"/><h2>' + locationName + '</h2>' + locationDesc + '</div>').insertBefore('#map');
-    });
 
     // Set infowindow height
     var mapHeight = $('#map-wrapper').outerHeight();
 
-    // Show infowindow on thumbnail click
-    $('.thumbnail').click(function() {
-        var thumbNum = $('.thumbnail').index(this); 
-        if ($(window).width() > 700) {
-            var thumbNum = thumbNum+2;
-        } else {var thumbNum = thumbNum+1;}
-        $('.infowindow:nth-of-type(' + thumbNum + ')').fadeIn();
-    });
-
-    // Hide infowindow on x click
-    $('.infowindow .fa-times').click(function() {
-        $('.infowindow').fadeOut();
-    });
-    $('.infowindow').click(function(e) {
-        e.stopPropagation();
-    });
-    
-    
     // Move menu below map on mobile 
     if ($(window).width() < mobileBreakpoint+1) {
          $('#map-menu').insertAfter('#map');
     }
-	
-    //=====================================================================
-    // Add new thumbnail to map menu and add location info to code textarea
-    //=====================================================================
-	$('#addMarkerButton').on('click', function() {
-        var latitude = document.getElementById('latitude').value;
-        latitude = parseInt(latitude);
-        var longitude = document.getElementById('longitude').value;
-        longitude = parseInt(longitude);
-        var locationName = document.getElementById('locationName').value;
-        var locationImage = document.getElementById('locationImage').value;
-        var locationDescription = document.getElementById('locationDescription').value;
-        var locationLink = document.getElementById('locationLink').value;
-
-		// Add menu thumbnail
-		$('.menu-section.first').append(
-            '<div class="thumbnail"' + 
-                'style="background-image: url(\'' + locationImage + '\')"' +
-                'data-lat="' + latitude + '"' +
-                'data-long="' + longitude + '"' +
-            '>' +
-                '<p>' + locationName + '</p>' +
-                '<div class="description">' +
-                    '<p>' + locationDescription + '</p>' +
-                    '<p><a v-bind:href="' + locationLink + '">Website</a></p>' +
-                '</div>' +
-            '</div>'
-		);
-		
-		// Add code to copy code section on add marker button click
-		document.getElementById("mapCode").value +=
-			'<div class="menu-section-header"></div>' +
-				'<div class="menu-section first">' +
-					'<div class="thumbnail" style="background-image: url(' + locationImage + ');" data-lat="{{latitude}}" data-long="{{longitude}}">' +
-				'<p>' + locationName + '</p>' +
-				'<div class="description">' +
-						'<p>' + locationDescription + '</p>' +
-						'<p><a href="" target="_blank">Website</a></p>' +
-				'</div>' +
-			'</div>' +
-		'</div>';
-	});
     
 });
 
