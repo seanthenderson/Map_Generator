@@ -4,6 +4,8 @@
   3. Get map to load more consistently
   4. Markers
 		a. Make draggable
+``5. Get Babel working
+
 ===== -->
 
 <!DOCTYPE html>
@@ -79,15 +81,7 @@
 			<div id="map-wrapper">
 				<div id="map-menu">
 					<div class="menu-section-header"></div>
-					<div class="menu-section first">
-						<div class="thumbnail" v-bind:style="{ backgroundImage: 'url(' + locationImage + ')' }" data-lat="{{latitude}}" data-long="{{longitude}}">
-							<p>{{locationName}}</p>
-							<div class="description">
-									<p>{{locationDescription}}</p>
-									<p><a v-bind:href="locationLink">Website</a></p>
-							</div>
-						</div>
-					</div>
+					<div class="menu-section first"></div>
 				</div>
 				
 				<div id="map" :style="{ height: mapHeight + 'px' }"></div>
@@ -108,7 +102,7 @@
 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.3/vue.min.js"></script>
-		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8lBLShwOJ9-oZJeO0PHkaN5wMHnVRJGM&callback=initMap" async defer></script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAaNJxJCuP05lZre6EIh7fHC77ebd57KQw&callback=initMap" async defer></script>
 		<script src="js/script.js" type="text/javascript"></script>
 	</body>
 </html>

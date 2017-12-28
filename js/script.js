@@ -4,11 +4,11 @@
 function defaultMarkerData() {
     return {
         locationName: '',
-    		latitude: '',
-    		longitude: '',
-    		locationDescription: '',
-    		locationImage: '',
-    		locationLink: ''
+		latitude: '',
+		longitude: '',
+		locationDescription: '',
+		locationImage: '',
+		locationLink: ''
     }
 }
 
@@ -26,10 +26,10 @@ new Vue({
 	data: defaultMarkerData(),
 	methods: {
 		reset ( keep ) {
-      var def = defaultMarkerData();
-      def[keep] = this[keep];
-      Object.assign(this.$data, def);
-    }
+            var def = defaultMarkerData();
+            def[keep] = this[keep];
+            Object.assign(this.$data, def);
+        }
 	}
 })
 
@@ -46,23 +46,27 @@ function initMap(map) {
         zoom: 2,
     });
 	
-	google.maps.event.addListener(map, 'click', function(event) {
-		addMarker(event.latLng, map);
-	});
+    // Add marker on click
+	// google.maps.event.addListener(map, 'click', function(event) {
+	// 	addMarker(event.latLng, map);
+	// });
 
 	// Map settings
 	function changeMap() {
 		var zoom = document.getElementById('zoomLevel').value;
 		zoom = parseInt(zoom);
+        console.log(zoom);
 		var latitude = document.getElementById('centerLat').value;
 		latitude = parseInt(latitude);
+        console.log(latitude);
 		var longitude = document.getElementById('centerLong').value;
 		longitude = parseInt(longitude);
+        console.log(latitude);
 
 		map.setCenter(new google.maps.LatLng(latitude, longitude));
 		map.setZoom(zoom);
 
-        google.maps.event.trigger(map, 'resize');
+        //google.maps.event.trigger(map, 'resize');
 	}	
 
 	// Alter map when settings are changed
@@ -73,9 +77,6 @@ function initMap(map) {
 	});
 
 	// Add new marker
-	var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-	var labelIndex = 0;
-
 	function addMarker() {
 		var latitude = document.getElementById('latitude').value;
 		latitude = parseInt(latitude);
@@ -254,9 +255,9 @@ $(document).ready(function() {
 
     // Show/hide menu sections
     var sectionHeight = $('.menu-section').height();
-    $('.menu-section').height(0);
+    //$('.menu-section').height(0);
 
-    $('.menu-section.first').height(sectionHeight+10);
+    //$('.menu-section.first').height(sectionHeight+10);
 
     $('.menu-section-header').click(function() {
         $('.menu-section').animate({'height': '0'}, 400);
@@ -310,29 +311,42 @@ $(document).ready(function() {
     // Add new thumbnail to map menu and add location info to code textarea
     //=====================================================================
 	$('#addMarkerButton').on('click', function() {
+        var latitude = document.getElementById('latitude').value;
+        latitude = parseInt(latitude);
+        var longitude = document.getElementById('longitude').value;
+        longitude = parseInt(longitude);
+        var locationName = document.getElementById('locationName').value;
+        var locationImage = document.getElementById('locationImage').value;
+        var locationDescription = document.getElementById('locationDescription').value;
+        var locationLink = document.getElementById('locationLink').value;
+
 		// Add menu thumbnail
-		$('#map-menu').prepend(
-			`<div class="thumbnail" v-bind:style="${ backgroundImage}: 'url(' + ${locationImage} + ')' }" data-lat="${latitude}" data-long="${longitude}">
-				<p>${locationName}</p>
-				<div class="description">
-						<p>${locationDescription}</p>
-						<p><a v-bind:href="${locationLink}">Website</a></p>
-				</div>
-			</div>`
+		$('.menu-section.first').append(
+            '<div class="thumbnail"' + 
+                'style="background-image: url(\'' + locationImage + '\')"' +
+                'data-lat="' + latitude + '"' +
+                'data-long="' + longitude + '"' +
+            '>' +
+                '<p>' + locationName + '</p>' +
+                '<div class="description">' +
+                    '<p>' + locationDescription + '</p>' +
+                    '<p><a v-bind:href="' + locationLink + '">Website</a></p>' +
+                '</div>' +
+            '</div>'
 		);
 		
 		// Add code to copy code section on add marker button click
 		document.getElementById("mapCode").value +=
-					'<div class="menu-section-header"></div>' +
-						'<div class="menu-section first">' +
-							'<div class="thumbnail" style="background-image: url(' + locationImage + ');" data-lat="{{latitude}}" data-long="{{longitude}}">' +
-						'<p>' + locationName + '</p>' +
-						'<div class="description">' +
-								'<p>' + locationDescription + '</p>' +
-								'<p><a href="" target="_blank">Website</a></p>' +
-						'</div>' +
-					'</div>' +
-				'</div>';
+			'<div class="menu-section-header"></div>' +
+				'<div class="menu-section first">' +
+					'<div class="thumbnail" style="background-image: url(' + locationImage + ');" data-lat="{{latitude}}" data-long="{{longitude}}">' +
+				'<p>' + locationName + '</p>' +
+				'<div class="description">' +
+						'<p>' + locationDescription + '</p>' +
+						'<p><a href="" target="_blank">Website</a></p>' +
+				'</div>' +
+			'</div>' +
+		'</div>';
 	});
     
 });
