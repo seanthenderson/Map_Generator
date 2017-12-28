@@ -1,0 +1,224 @@
+body {
+  font-family: Arial, sans-serif; }
+
+form,
+#getCode {
+  margin-bottom: 10px;
+  padding: 5px 15px;
+  border: 1px solid #333;
+  overflow: hidden; }
+  form h2,
+  #getCode h2 {
+    margin: 12px 0;
+    padding: 0 12px;
+    text-transform: uppercase;
+    cursor: pointer; }
+  form fieldset,
+  #getCode fieldset {
+    border: none;
+    box-shadow: 0 0 1px #dcdcdc; }
+  form button,
+  #getCode button {
+    margin: 10px 0;
+    padding: 5px 15px;
+    background-color: #333;
+    border: none;
+    border-radius: 0;
+    color: #eee;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.5s; }
+    form button:hover,
+    #getCode button:hover {
+      background-color: #1565C0; }
+
+img {
+  max-width: 250px;
+  vertical-align: middle; }
+
+form#addMarker textarea {
+  width: 400px;
+  height: 150px;
+  vertical-align: top; }
+form#addMarker .infowindow {
+  max-width: 600px;
+  min-height: 300px;
+  padding: 20px;
+  border: 3px solid #333;
+  color: #333; }
+  form#addMarker .infowindow #locationThumb {
+    margin: 0 0 10px 20px;
+    float: right; }
+  form#addMarker .infowindow h2 {
+    font-size: 31px;
+    text-transform: none;
+    line-height: 1.1; }
+  form#addMarker .infowindow p {
+    font-size: 16px;
+    line-height: 1.5; }
+
+#mapCode {
+  width: 100%;
+  height: 200px;
+  clear: both; }
+
+#map-wrapper {
+  width: 100%;
+  min-height: 500px;
+  margin: 20px auto;
+  text-align: center;
+  position: relative; }
+  #map-wrapper #map-menu {
+    width: 310px;
+    min-height: 500px;
+    margin-right: -5px;
+    background: #333;
+    color: #e0e0e0;
+    display: inline-block;
+    vertical-align: top;
+    overflow: hidden; }
+    @media only screen and (max-width: 700px) {
+      #map-wrapper #map-menu {
+        width: auto;
+        height: auto !important; } }
+    #map-wrapper #map-menu .menu-section-header {
+      margin-bottom: -2px;
+      border-top: solid 1px #666;
+      font-weight: bold;
+      text-align: center;
+      text-transform: uppercase; }
+      #map-wrapper #map-menu .menu-section-header:hover {
+        color: #fff;
+        cursor: pointer; }
+      #map-wrapper #map-menu .menu-section-header:first-of-type {
+        border-top: none; }
+    #map-wrapper #map-menu .menu-section {
+      overflow: scroll;
+      overflow: -moz-scrollbars-none;
+      -ms-overflow-style: none; }
+      #map-wrapper #map-menu .menu-section::-webkit-scrollbar {
+        width: 0px;
+        background: transparent; }
+      #map-wrapper #map-menu .menu-section .thumbnail {
+        width: 155px;
+        height: 155px;
+        margin: 0;
+        background-size: cover;
+        background-repeat: no-repeat;
+        position: relative;
+        display: inline-block;
+        vertical-align: top; }
+        #map-wrapper #map-menu .menu-section .thumbnail:hover {
+          cursor: pointer; }
+        #map-wrapper #map-menu .menu-section .thumbnail p {
+          margin: 0;
+          padding: 10px 0 12px;
+          background: rgba(0, 0, 0, 0.7);
+          color: #fff;
+          font-size: 15px;
+          font-weight: bold;
+          text-shadow: 0 0 3px #000;
+          line-height: 1;
+          opacity: 0.9;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0; }
+          #map-wrapper #map-menu .menu-section .thumbnail p:hover {
+            opacity: 1; }
+        #map-wrapper #map-menu .menu-section .thumbnail .description {
+          display: none; }
+  #map-wrapper .infowindow {
+    width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #fff;
+    border: solid 3px #333;
+    color: #333;
+    text-align: left;
+    position: absolute;
+    top: 20px;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    display: none; }
+    @media only screen and (max-width: 700px) {
+      #map-wrapper .infowindow {
+        width: auto;
+        overflow: scroll;
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        bottom: 10px; } }
+    #map-wrapper .infowindow a {
+      color: #1BC8E2;
+      text-decoration: none; }
+      #map-wrapper .infowindow a:hover {
+        text-decoration: underline; }
+    #map-wrapper .infowindow .fa-times {
+      width: 16px;
+      height: 16px;
+      padding: 5px;
+      background: #fff;
+      border: solid 4px #333;
+      border-radius: 100%;
+      color: #333;
+      font-size: 20px;
+      text-align: center;
+      line-height: 16px;
+      position: absolute;
+      top: -13px;
+      right: -13px;
+      z-index: 9999; }
+      #map-wrapper .infowindow .fa-times:hover {
+        color: #000;
+        border: solid 4px #000;
+        cursor: pointer; }
+      @media only screen and (max-width: 700px) {
+        #map-wrapper .infowindow .fa-times {
+          padding: 3px;
+          background: none;
+          border: 0;
+          border-radius: 0;
+          top: 0;
+          right: 0; }
+          #map-wrapper .infowindow .fa-times:hover {
+            color: #000;
+            border: none;
+            cursor: pointer; } }
+    #map-wrapper .infowindow img {
+      width: 250px;
+      margin: 0 0 10px 20px;
+      float: right; }
+      @media only screen and (max-width: 500px) {
+        #map-wrapper .infowindow img {
+          width: 100%;
+          margin: 0 0 10px 0; } }
+    #map-wrapper .infowindow h2 {
+      margin: 0 0 10px;
+      font-size: 35px; }
+      @media only screen and (max-width: 700px) {
+        #map-wrapper .infowindow h2 {
+          font-size: 30px; } }
+      @media only screen and (max-width: 400px) {
+        #map-wrapper .infowindow h2 {
+          font-size: 23px; } }
+    #map-wrapper .infowindow p {
+      line-height: 26px; }
+  #map-wrapper #map {
+    width: 78%;
+    height: 500px;
+    display: inline-block;
+    vertical-align: top; }
+    @media only screen and (max-width: 1000px) {
+      #map-wrapper #map {
+        width: 500px; } }
+    @media only screen and (max-width: 700px) {
+      #map-wrapper #map {
+        width: 100%;
+        height: 500px; } }
+    @media only screen and (max-width: 400px) {
+      #map-wrapper #map {
+        height: 300px; } }
+
+/*# sourceMappingURL=style.css.map */
