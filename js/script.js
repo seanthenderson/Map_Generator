@@ -8,7 +8,9 @@ function defaultMarkerData() {
 		longitude: '',
 		locationDescription: '',
 		locationImage: '',
-		locationLink: ''
+		locationLink: '',
+        mapWidth: '78',
+        mapHeight: '500',
     }
 }
 
@@ -18,8 +20,6 @@ new Vue({
 		zoomLevel: '2',
 		centerLat: '40',
 		centerLong: '-70',
-		mapWidth: '',
-		mapHeight: '',
 	},
 	
 	el: '#root',
@@ -205,6 +205,7 @@ function initMap(map) {
 //=======================================================
 // Show/hide form section
 //=======================================================
+var initialHeight = 35;
 var settingsHeight= $('form#mapSettings').outerHeight();
 var addMarkerHeight= $('form#addMarker').outerHeight();
 var getCodeHeight= $('#getCode').outerHeight();
@@ -212,14 +213,14 @@ var settingsCount = 0;
 var addMarkerCount = 0;
 var getCodeCount = 0;
 
-$('form, #getCode').height(50);
+$('form, #getCode').height(initialHeight);
 
 $('form#mapSettings h2').on('click', function() {
 	if (settingsCount%2===0) {
 		$(this).parent().animate({'height': settingsHeight});
 		$(this).children('.fa').removeClass('fa-plus-circle').addClass('fa-minus-circle');
 	} else {
-		$(this).parent().animate({'height': 50});
+		$(this).parent().animate({'height': initialHeight});
 		$(this).children('.fa').removeClass('fa-minus-circle').addClass('fa-plus-circle');
 	}
 	settingsCount++;
@@ -230,7 +231,7 @@ $('form#addMarker h2').on('click', function() {
 		$(this).parent().animate({'height': addMarkerHeight});
 		$(this).children('.fa').removeClass('fa-plus-circle').addClass('fa-minus-circle');
 	} else {
-		$(this).parent().animate({'height': 50});
+		$(this).parent().animate({'height': initialHeight});
 		$(this).children('.fa').removeClass('fa-minus-circle').addClass('fa-plus-circle');
 	}
 	addMarkerCount++;
@@ -241,7 +242,7 @@ $('#getCode h2').on('click', function() {
 		$(this).parent().animate({'height': getCodeHeight});
 		$(this).children('.fa').removeClass('fa-plus-circle').addClass('fa-minus-circle');
 	} else {
-		$(this).parent().animate({'height': 50});
+		$(this).parent().animate({'height': initialHeight});
 		$(this).children('.fa').removeClass('fa-minus-circle').addClass('fa-plus-circle');
 	}
 	getCodeCount++;

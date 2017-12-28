@@ -79,12 +79,12 @@
 			</form>
 			
 			<div id="map-wrapper">
-				<div id="map-menu">
+				<div id="map-menu" v-bind:style="{ height: mapHeight + 'px' }">
 					<div class="menu-section-header"></div>
 					<div class="menu-section first"></div>
 				</div>
 				
-				<div id="map" :style="{ height: mapHeight + 'px' }"></div>
+				<div id="map" v-bind:style="{ height: mapHeight + 'px', width: mapWidth + '%' }"></div>
 			</div>
 			
 			<div id="getCode">

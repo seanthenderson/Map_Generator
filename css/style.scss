@@ -6,17 +6,26 @@ form,
 #getCode {
 	margin-bottom: 10px;
 	padding: 5px 15px;
-	border: 1px solid #333;
+	background-color: #01a084;
+	//border: 2px solid #077d11;
+	color: #fff;
 	overflow: hidden;
 	h2 {
-		margin: 12px 0;
+		margin: 5px 0 12px;
 		padding: 0 12px;
 		text-transform: uppercase;
 		cursor: pointer;
 	}
 	fieldset {
+		padding: 15px 0;
 		border: none;
-		box-shadow: 0 0 1px #dcdcdc;
+		border-bottom: solid 1px #ccc;
+		//box-shadow: 0 0 1px #dcdcdc;
+		font-size: 18px;
+		input {
+			margin: 0 50px 0 10px;
+			font-size: 18px;
+		}
 	}
 	button {
 		margin: 10px 0;
@@ -34,13 +43,13 @@ form,
 	}
 }
 
-img {
-	max-width: 250px;
-	vertical-align: middle;
+form#mapSettings {
+	input {
+		width: 50px;
+	}
 }
 
 form#addMarker {
-	//display: none;
 	textarea {
 		width: 400px;
 		height: 150px;
@@ -50,6 +59,7 @@ form#addMarker {
 		max-width: 600px;
 		min-height: 300px;
 		padding: 20px;
+		background-color: #fff;
 		border: 3px solid #333;
 		color: #333;
 		#locationThumb {
@@ -77,16 +87,15 @@ form#addMarker {
 // Map menu
 #map-wrapper {
 	width: 100%;
-	min-height: 500px;
+	//min-height: 500px;
 	margin: 20px auto;
 	text-align: center;
 	position: relative;
 	#map-menu {
 		width: 310px;
-		min-height: 500px;
+		//min-height: 500px;
 		margin-right: -5px;
 		background: #333;
-		//border: solid 2px #333;
 		color: #e0e0e0;
 		display: inline-block;
 		vertical-align: top;

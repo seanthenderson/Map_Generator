@@ -5,18 +5,25 @@ form,
 #getCode {
   margin-bottom: 10px;
   padding: 5px 15px;
-  border: 1px solid #333;
+  background-color: #01a084;
+  color: #fff;
   overflow: hidden; }
   form h2,
   #getCode h2 {
-    margin: 12px 0;
+    margin: 5px 0 12px;
     padding: 0 12px;
     text-transform: uppercase;
     cursor: pointer; }
   form fieldset,
   #getCode fieldset {
+    padding: 15px 0;
     border: none;
-    box-shadow: 0 0 1px #dcdcdc; }
+    border-bottom: solid 1px #ccc;
+    font-size: 18px; }
+    form fieldset input,
+    #getCode fieldset input {
+      margin: 0 50px 0 10px;
+      font-size: 18px; }
   form button,
   #getCode button {
     margin: 10px 0;
@@ -32,9 +39,8 @@ form,
     #getCode button:hover {
       background-color: #1565C0; }
 
-img {
-  max-width: 250px;
-  vertical-align: middle; }
+form#mapSettings input {
+  width: 50px; }
 
 form#addMarker textarea {
   width: 400px;
@@ -44,6 +50,7 @@ form#addMarker .infowindow {
   max-width: 600px;
   min-height: 300px;
   padding: 20px;
+  background-color: #fff;
   border: 3px solid #333;
   color: #333; }
   form#addMarker .infowindow #locationThumb {
@@ -64,13 +71,11 @@ form#addMarker .infowindow {
 
 #map-wrapper {
   width: 100%;
-  min-height: 500px;
   margin: 20px auto;
   text-align: center;
   position: relative; }
   #map-wrapper #map-menu {
     width: 310px;
-    min-height: 500px;
     margin-right: -5px;
     background: #333;
     color: #e0e0e0;
