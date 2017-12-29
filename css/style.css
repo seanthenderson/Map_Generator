@@ -6,13 +6,14 @@ a {
   color: #0091d8;
   text-decoration: none; }
   a:visited {
-    color: #0091d8; }
+    color: #039BE5; }
   a:hover {
     text-decoration: underline; }
 
 form,
 #getCode {
-  margin-bottom: 10px;
+  max-width: 90%;
+  margin: 0 auto 10px;
   padding: 5px 15px;
   background-color: #fff;
   border: 4px solid #333;
@@ -22,6 +23,9 @@ form,
     margin: 5px 0 12px;
     text-transform: uppercase;
     cursor: pointer; }
+  form p strong,
+  #getCode p strong {
+    margin-right: 40px; }
   form fieldset,
   #getCode fieldset {
     padding: 15px 0;
@@ -31,12 +35,25 @@ form,
     form fieldset input, form fieldset textarea,
     #getCode fieldset input,
     #getCode fieldset textarea {
-      margin: 0 50px 0 10px;
+      margin: 0 40px 0 10px;
+      border: 1px solid #777;
       font-size: 18px; }
+      form fieldset input::-webkit-input-placeholder, form fieldset textarea::-webkit-input-placeholder, #getCode fieldset input::-webkit-input-placeholder, #getCode fieldset textarea::-webkit-input-placeholder {
+        color: #999;
+        font-size: 15px; }
+      form fieldset input:-moz-placeholder, form fieldset textarea:-moz-placeholder, #getCode fieldset input:-moz-placeholder, #getCode fieldset textarea:-moz-placeholder {
+        color: #999;
+        font-size: 15px; }
+      form fieldset input::-moz-placeholder, form fieldset textarea::-moz-placeholder, #getCode fieldset input::-moz-placeholder, #getCode fieldset textarea::-moz-placeholder {
+        color: #999;
+        font-size: 15px; }
+      form fieldset input:-ms-input-placeholder, form fieldset textarea:-ms-input-placeholder, #getCode fieldset input:-ms-input-placeholder, #getCode fieldset textarea:-ms-input-placeholder {
+        color: #999;
+        font-size: 15px; }
     form fieldset .small-link,
     #getCode fieldset .small-link {
+      margin-left: -15px;
       font-size: 12px;
-      margin-left: 15px;
       vertical-align: middle; }
   form button,
   #getCode button {
@@ -58,9 +75,18 @@ form#mapSettings input {
   text-align: center; }
 
 form#addMarker textarea {
-  width: 400px;
+  width: 428px;
   height: 150px;
   vertical-align: top; }
+form#addMarker input#locationName {
+  width: 468px; }
+form#addMarker input#latitude,
+form#addMarker input#longitude {
+  width: 60px; }
+form#addMarker input#locationImage {
+  width: 500px; }
+form#addMarker input#locationLink {
+  width: 434px; }
 form#addMarker .infowindow-preview {
   max-width: 600px;
   min-height: 300px;
@@ -71,11 +97,6 @@ form#addMarker .infowindow-preview {
   form#addMarker .infowindow-preview #locationThumb {
     margin: 0 0 10px 20px;
     float: right; }
-  form#addMarker .infowindow-preview a {
-    color: #1BC8E2;
-    text-decoration: none; }
-    form#addMarker .infowindow-preview a:hover {
-      text-decoration: underline; }
   form#addMarker .infowindow-preview h2 {
     font-size: 31px;
     text-transform: none;
@@ -101,11 +122,15 @@ form#addMarker .infowindow-preview {
     color: #e0e0e0;
     display: inline-block;
     vertical-align: top;
-    overflow: hidden; }
+    overflow: scroll; }
     @media only screen and (max-width: 700px) {
       #map-wrapper #map-menu {
         width: auto;
         height: auto !important; } }
+    #map-wrapper #map-menu h2 {
+      margin: 100px auto;
+      color: #ececec;
+      text-transform: uppercase; }
     #map-wrapper #map-menu .menu-section-header {
       margin-bottom: -2px;
       border-top: solid 1px #666;
@@ -175,11 +200,6 @@ form#addMarker .infowindow-preview {
         left: 10px;
         right: 10px;
         bottom: 10px; } }
-    #map-wrapper .infowindow a {
-      color: #1BC8E2;
-      text-decoration: none; }
-      #map-wrapper .infowindow a:hover {
-        text-decoration: underline; }
     #map-wrapper .infowindow .fa-times {
       width: 16px;
       height: 16px;

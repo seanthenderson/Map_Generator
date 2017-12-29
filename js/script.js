@@ -9,7 +9,7 @@ function defaultMarkerData() {
 		locationDescription: '',
 		locationImage: '',
 		locationLink: '',
-        mapWidth: '78',
+        mapWidth: '68',
         mapHeight: '500',
     }
 }
@@ -83,7 +83,7 @@ function initMap(map) {
     var redMarker = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
     var blueMarker = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png';
 
-	$('#addMarkerButton').click(function(marker) {
+	$('#addMarkerButton').on('click', function(marker) {
         var latitude = document.getElementById('latitude').value;
         latitude = parseInt(latitude);
         var longitude = document.getElementById('longitude').value;
@@ -112,6 +112,9 @@ function initMap(map) {
 
         // Clear form textarea
 		$('form#addMarker textarea').val('');
+
+        // Hide map menu placeholder text
+        $('h2#menuPlaceholder').hide();
 
         // Add menu thumbnail
         $('.menu-section.first').append(
@@ -313,6 +316,13 @@ $(document).ready(function() {
     // Move menu below map on mobile 
     if ($(window).width() < mobileBreakpoint+1) {
          $('#map-menu').insertAfter('#map');
+    }
+
+    // Select all textarea code in copy/paste section when user clicks
+    var textBox = document.getElementById("mapCode");
+    
+    textBox.onfocus = function() {
+        textBox.select();
     }
     
 });

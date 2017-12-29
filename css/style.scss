@@ -1,18 +1,35 @@
+// Variables
+
+
+// Mixins
+@mixin optional-at-root($sel) {
+  @at-root #{if(not &, $sel, selector-append(&, $sel))} {
+    @content;
+  }
+}
+@mixin placeholder {
+  @include optional-at-root('::-webkit-input-placeholder') {@content}
+  @include optional-at-root(':-moz-placeholder') {@content}
+  @include optional-at-root('::-moz-placeholder') {@content}
+  @include optional-at-root(':-ms-input-placeholder') {@content}
+}
+
+// Default styles
 body {
 	background-color: #999;
 	font-family: Arial, sans-serif;
 }
-
 a {
 	color: #0091d8;
 	text-decoration: none;
-	&:visited { color: #0091d8; }
+	&:visited { color: #039BE5; }
 	&:hover { text-decoration: underline; }
 }
 
 form, 
 #getCode {
-	margin-bottom: 10px;
+	max-width: 90%;
+	margin: 0 auto 10px;
 	padding: 5px 15px;
 	background-color: #fff;
 	border: 4px solid #333;
@@ -24,6 +41,9 @@ form,
 		text-transform: uppercase;
 		cursor: pointer;
 	}
+	p strong {
+		margin-right: 40px;
+	}
 	fieldset {
 		padding: 15px 0;
 		border: none;
@@ -31,12 +51,17 @@ form,
 		//box-shadow: 0 0 1px #dcdcdc;
 		font-size: 18px;
 		input, textarea {
-			margin: 0 50px 0 10px;
+			margin: 0 40px 0 10px;
+			border: 1px solid #777;
 			font-size: 18px;
+			@include placeholder {
+				color: #999;
+				font-size: 15px;
+			}
 		}
 		.small-link {
+			margin-left: -15px;
 			font-size: 12px;
-			margin-left: 15px;
 			vertical-align: middle;
 		}
 	}
@@ -65,9 +90,22 @@ form#mapSettings {
 
 form#addMarker {
 	textarea {
-		width: 400px;
+		width: 428px;
 		height: 150px;
 		vertical-align: top;
+	}
+	input#locationName {
+		width: 468px;
+	}
+	input#latitude,
+	input#longitude {
+		width: 60px;
+	}
+	input#locationImage {
+		width: 500px;
+	}
+	input#locationLink {
+		width: 434px;
 	}
 	.infowindow-preview {
 		max-width: 600px;
@@ -79,11 +117,6 @@ form#addMarker {
 		#locationThumb {
 			margin: 0 0 10px 20px;
 			float: right;
-		}
-		a {
-			color: #1BC8E2;
-			text-decoration: none;
-			&:hover {text-decoration: underline}
 		}
 		h2 {
 			font-size: 31px;
@@ -118,10 +151,15 @@ form#addMarker {
 		color: #e0e0e0;
 		display: inline-block;
 		vertical-align: top;
-		overflow: hidden;
+		overflow: scroll;
 		@media only screen and (max-width: 700px) {
 			width: auto;
 			height: auto !important;
+		}
+		h2 {
+			margin: 100px auto;
+			color: #ececec;
+			text-transform: uppercase;
 		}
 		.menu-section-header {
 			margin-bottom: -2px;
@@ -195,11 +233,6 @@ form#addMarker {
 			left: 10px;
 			right: 10px;
 			bottom: 10px;
-		}
-		a {
-			color: #1BC8E2;
-			text-decoration: none;
-			&:hover {text-decoration: underline}
 		}
 		.fa-times {
 			width: 16px;
