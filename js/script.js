@@ -159,6 +159,7 @@ function initMap(map) {
 
         // Add code to copy code section on add marker button click
         document.getElementById("mapCode").value +=
+            '<link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">' +
             '<style>' +
                 '#map-wrapper {' +
                   'width: 100%;' +
@@ -331,18 +332,34 @@ function initMap(map) {
                         '</div>' +
                     '</div>' +
                 '</div>' +
+                '<div id="map"></div>' +
             '</div>' +
-            '<div id="map"></div>' +
 
             '<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>' +
             '<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAaNJxJCuP05lZre6EIh7fHC77ebd57KQw&callback=initMap" async defer></script>' +
 
             '<script>' +
-                `function initMap(map) {
+                `
+                var marker;
+                var markerId = 0;
+                var markers = [];
+                function initMap(map) {
                     var map = new google.maps.Map(document.getElementById("map"), {
                         center: {lat: ${centerLat}, lng: ${centerLong}},
                         zoom: ${zoomLevel},
                     });
+
+                    // Add a new marker
+                    var marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(${latitude}, ${longitude}),
+                        label: "${locationName}",
+                        map: map,
+                        id: markerId
+                    });
+
+                    markers.push(marker);
+
+                    markerId++;
                 }
                 $("#map").css({"width": "${mapWidth}%", "height": "${mapHeight}px"});
 
