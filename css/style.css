@@ -73,6 +73,9 @@ form,
 form#mapSettings input {
   width: 60px;
   text-align: center; }
+form#mapSettings input#apiKey {
+  width: 250px;
+  font-size: 11px; }
 
 form#addMarker textarea {
   width: 428px;

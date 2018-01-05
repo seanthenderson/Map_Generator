@@ -20,7 +20,7 @@
 				</fieldset>
 
 				<fieldset>
-					<p><strong>Map Center Point</strong><a href="https://www.latlong.net/" target=__blank" class="small-link">Find coordinates: latlong.net</a></p>
+					<p><strong>Map Center Point</strong><a href="https://www.latlong.net/" target="_blank" class="small-link">Find coordinates: latlong.net</a></p>
 					<label for="centerLat">Latitude</label>
 					<input type="number" id="centerLat" v-model="centerLat" /> 
 					<label for="centerLong">Longitude</label>
@@ -33,6 +33,13 @@
 					<input type="number" id="mapWidth" v-model="mapWidth" placeholder="%" />
 					<label for="mapHeight">Height</label>
 					<input type="number" id="mapHeight" v-model="mapHeight" placeholder="px" />
+				</fieldset>
+
+				<fieldset>
+					<p><strong>Google Maps API key</strong></p>
+					<label for="apiKey">Key</label>
+					<input id="apiKey" />
+					<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank" class="small-link">Get a key</a>
 				</fieldset>
 			</form>
 			
@@ -47,7 +54,7 @@
 					<input type="number" id="latitude" v-model="latitude"/> 
 					<label for="longitude">Longitude</label>
 					<input type="number" id="longitude" v-model="longitude"/> 
-					<a href="https://www.latlong.net/" target=__blank" class="small-link">Find coordinates: latlong.net</a>
+					<a href="https://www.latlong.net/" target="_blank" class="small-link">Find coordinates: latlong.net</a>
 				</fieldset>
 				<fieldset>
 					<label for="locationImage">Image Link</label>
@@ -86,13 +93,7 @@
 			<div id="getCode">
 				<h2><i class="fa fa-plus-circle" aria-hidden="true"></i> Copy Code</h2>
 				<p><strong>Copy code below and paste to your site:</strong></p>
-				<textarea id="mapCode">
-				<div id="map-wrapper">
-					<div id="map-menu">
-							
-					</div>
-				</div>
-				</textarea>
+				<textarea id="mapCode"></textarea>
 			</div>
 		</div>
 

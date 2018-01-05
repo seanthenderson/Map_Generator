@@ -86,6 +86,10 @@ form#mapSettings {
 		width: 60px;
 		text-align: center;
 	}
+	input#apiKey {
+		width: 250px;
+		font-size: 11px;
+	}
 }
 
 form#addMarker {
@@ -139,13 +143,11 @@ form#addMarker {
 // Map menu
 #map-wrapper {
 	width: 100%;
-	//min-height: 500px;
 	margin: 20px auto;
 	text-align: center;
 	position: relative;
 	#map-menu {
 		width: 310px;
-		//min-height: 500px;
 		margin-right: -5px;
 		background: #333;
 		color: #e0e0e0;
